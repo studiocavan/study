@@ -15,6 +15,11 @@ export const topics: Topic[] = [
         topic: 'arrays-hashing',
         leetcodeUrl: 'https://leetcode.com/problems/two-sum/',
         description: 'Given an array of integers and a target, return indices of the two numbers that add up to the target. Each input has exactly one solution and you may not use the same element twice.',
+        examples: [
+          { input: 'nums = [2,7,11,15], target = 9', output: '[0,1]', explanation: 'nums[0] + nums[1] == 9' },
+          { input: 'nums = [3,2,4], target = 6', output: '[1,2]' },
+          { input: 'nums = [3,3], target = 6', output: '[0,1]' },
+        ],
         hints: [
           'Think about storing previously seen values as you iterate.',
           'A hash map lets you check if (target - current) exists in O(1).',
@@ -74,6 +79,10 @@ export const topics: Topic[] = [
         topic: 'arrays-hashing',
         leetcodeUrl: 'https://leetcode.com/problems/contains-duplicate/',
         description: 'Given an integer array, return true if any value appears at least twice, false if every element is distinct.',
+        examples: [
+          { input: 'nums = [1,2,3,1]', output: 'true' },
+          { input: 'nums = [1,2,3,4]', output: 'false' },
+        ],
         hints: [
           'A set only stores unique values - use that property.',
           'If the set size is smaller than the array length after insertion, there was a duplicate.',
@@ -105,6 +114,10 @@ export const topics: Topic[] = [
         topic: 'arrays-hashing',
         leetcodeUrl: 'https://leetcode.com/problems/valid-anagram/',
         description: 'Given two strings s and t, return true if t is an anagram of s. An anagram uses all original characters exactly once.',
+        examples: [
+          { input: 's = "anagram", t = "nagaram"', output: 'true' },
+          { input: 's = "rat", t = "car"', output: 'false' },
+        ],
         hints: [
           'Count character frequencies in both strings.',
           'Two strings are anagrams if their character frequency maps are equal.',
@@ -142,6 +155,10 @@ export const topics: Topic[] = [
         topic: 'arrays-hashing',
         leetcodeUrl: 'https://leetcode.com/problems/group-anagrams/',
         description: 'Given an array of strings, group the anagrams together. The order of output does not matter.',
+        examples: [
+          { input: 'strs = ["eat","tea","tan","ate","nat","bat"]', output: '[["bat"],["nat","tan"],["ate","eat","tea"]]' },
+          { input: 'strs = [""]', output: '[[""]]' },
+        ],
         hints: [
           'Anagrams have the same sorted string - use that as a key.',
           'Build a map from sorted-string -> list of original strings.',
@@ -183,6 +200,11 @@ export const topics: Topic[] = [
         topic: 'two-pointers',
         leetcodeUrl: 'https://leetcode.com/problems/valid-palindrome/',
         description: 'A phrase is a palindrome if it reads the same forward and backward after lowercasing and removing non-alphanumeric characters.',
+        examples: [
+          { input: 's = "A man, a plan, a canal: Panama"', output: 'true', explanation: '"amanaplanacanalpanama" is a palindrome' },
+          { input: 's = "race a car"', output: 'false' },
+          { input: 's = " "', output: 'true', explanation: 'Empty after filtering is a palindrome' },
+        ],
         hints: [
           'Use a left pointer starting at 0 and a right pointer starting at the end.',
           'Skip non-alphanumeric characters by advancing the pointer.',
@@ -238,6 +260,11 @@ function isAlphanumeric(c: string): boolean {
         topic: 'two-pointers',
         leetcodeUrl: 'https://leetcode.com/problems/3sum/',
         description: 'Find all unique triplets in the array that sum to zero. The solution set must not contain duplicate triplets.',
+        examples: [
+          { input: 'nums = [-1,0,1,2,-1,-4]', output: '[[-1,-1,2],[-1,0,1]]' },
+          { input: 'nums = [0,1,1]', output: '[]' },
+          { input: 'nums = [0,0,0]', output: '[[0,0,0]]' },
+        ],
         hints: [
           'Sort the array first - this lets you use two pointers and skip duplicates.',
           'Fix one element with an outer loop, then use two pointers for the remaining pair.',
@@ -295,6 +322,10 @@ function isAlphanumeric(c: string): boolean {
         topic: 'two-pointers',
         leetcodeUrl: 'https://leetcode.com/problems/container-with-most-water/',
         description: 'Given heights representing vertical lines, find two lines that together with the x-axis form a container holding the most water.',
+        examples: [
+          { input: 'height = [1,8,6,2,5,4,8,3,7]', output: '49', explanation: 'Lines at index 1 and 8, width=7, height=7' },
+          { input: 'height = [1,1]', output: '1' },
+        ],
         hints: [
           'Start with pointers at both ends - this gives the maximum width.',
           'Move the pointer pointing to the shorter line inward.',
@@ -336,6 +367,10 @@ function isAlphanumeric(c: string): boolean {
         topic: 'sliding-window',
         leetcodeUrl: 'https://leetcode.com/problems/best-time-to-buy-and-sell-stock/',
         description: 'Given an array of prices where prices[i] is the price on day i, find the maximum profit from one buy and one sell.',
+        examples: [
+          { input: 'prices = [7,1,5,3,6,4]', output: '5', explanation: 'Buy at day 2 (price=1), sell at day 5 (price=6)' },
+          { input: 'prices = [7,6,4,3,1]', output: '0', explanation: 'No profitable transaction possible' },
+        ],
         hints: [
           'Track the minimum price seen so far as you iterate.',
           'At each day, calculate profit if you sold today.',
@@ -386,6 +421,11 @@ function isAlphanumeric(c: string): boolean {
         topic: 'sliding-window',
         leetcodeUrl: 'https://leetcode.com/problems/longest-substring-without-repeating-characters/',
         description: 'Given a string, find the length of the longest substring without repeating characters.',
+        examples: [
+          { input: 's = "abcabcbb"', output: '3', explanation: '"abc" has length 3' },
+          { input: 's = "bbbbb"', output: '1', explanation: '"b" has length 1' },
+          { input: 's = "pwwkew"', output: '3', explanation: '"wke" has length 3' },
+        ],
         hints: [
           'Use a set to track characters in the current window.',
           'If you hit a duplicate, shrink the window from the left until it is gone.',
@@ -427,6 +467,11 @@ function isAlphanumeric(c: string): boolean {
         topic: 'sliding-window',
         leetcodeUrl: 'https://leetcode.com/problems/minimum-window-substring/',
         description: 'Given strings s and t, return the minimum window substring of s that contains all characters of t. Return empty string if no such window exists.',
+        examples: [
+          { input: 's = "ADOBECODEBANC", t = "ABC"', output: '"BANC"' },
+          { input: 's = "a", t = "a"', output: '"a"' },
+          { input: 's = "a", t = "aa"', output: '""', explanation: 'Not enough "a" characters in s' },
+        ],
         hints: [
           'Use two frequency maps - one for t, one for the current window.',
           'Expand right until you have all required characters, then shrink from left.',
@@ -491,6 +536,10 @@ function isAlphanumeric(c: string): boolean {
         topic: 'trees-graphs',
         leetcodeUrl: 'https://leetcode.com/problems/invert-binary-tree/',
         description: 'Given the root of a binary tree, invert it and return its root.',
+        examples: [
+          { input: 'root = [4,2,7,1,3,6,9]', output: '[4,7,2,9,6,3,1]' },
+          { input: 'root = [2,1,3]', output: '[2,3,1]' },
+        ],
         hints: [
           'Recursion is the cleanest approach here.',
           'At each node, swap the left and right children.',
@@ -519,6 +568,10 @@ function isAlphanumeric(c: string): boolean {
         topic: 'trees-graphs',
         leetcodeUrl: 'https://leetcode.com/problems/maximum-depth-of-binary-tree/',
         description: 'Given the root of a binary tree, return its maximum depth - the number of nodes along the longest path from root to a leaf.',
+        examples: [
+          { input: 'root = [3,9,20,null,null,15,7]', output: '3' },
+          { input: 'root = [1,null,2]', output: '2' },
+        ],
         hints: [
           'The depth of a node is 1 + the max depth of its children.',
           'Base case: null node has depth 0.',
@@ -557,6 +610,10 @@ function isAlphanumeric(c: string): boolean {
         topic: 'trees-graphs',
         leetcodeUrl: 'https://leetcode.com/problems/number-of-islands/',
         description: 'Given an m x n grid of 1s (land) and 0s (water), return the number of islands. An island is surrounded by water and formed by connecting adjacent land cells horizontally or vertically.',
+        examples: [
+          { input: 'grid = [["1","1","1","1","0"],["1","1","0","1","0"],["1","1","0","0","0"],["0","0","0","0","0"]]', output: '1' },
+          { input: 'grid = [["1","1","0","0","0"],["1","1","0","0","0"],["0","0","1","0","0"],["0","0","0","1","1"]]', output: '3' },
+        ],
         hints: [
           'Iterate through the grid. When you find a 1, increment the count.',
           'Then flood-fill (BFS or DFS) from that cell, marking all connected land as visited.',
@@ -632,6 +689,10 @@ fun dfs(grid: Array<CharArray>, r: Int, c: Int) {
         topic: 'dynamic-programming',
         leetcodeUrl: 'https://leetcode.com/problems/climbing-stairs/',
         description: 'You can climb 1 or 2 steps at a time. How many distinct ways can you climb n stairs?',
+        examples: [
+          { input: 'n = 2', output: '2', explanation: '1+1 or 2' },
+          { input: 'n = 3', output: '3', explanation: '1+1+1, 1+2, or 2+1' },
+        ],
         hints: [
           'The number of ways to reach step n is ways(n-1) + ways(n-2).',
           'This is the Fibonacci sequence.',
@@ -672,6 +733,10 @@ fun dfs(grid: Array<CharArray>, r: Int, c: Int) {
         topic: 'dynamic-programming',
         leetcodeUrl: 'https://leetcode.com/problems/house-robber/',
         description: 'You cannot rob two adjacent houses. Given an array of amounts, return the maximum you can rob without triggering alarms.',
+        examples: [
+          { input: 'nums = [1,2,3,1]', output: '4', explanation: 'Rob house 1 (1) then house 3 (3)' },
+          { input: 'nums = [2,7,9,3,1]', output: '12', explanation: 'Rob houses 1, 3, and 5: 2+9+1=12' },
+        ],
         hints: [
           'At each house, decide: rob this one (skip previous) or skip it (take previous max).',
           'dp[i] = max(dp[i-1], dp[i-2] + nums[i]).',
@@ -705,6 +770,11 @@ fun dfs(grid: Array<CharArray>, r: Int, c: Int) {
         topic: 'dynamic-programming',
         leetcodeUrl: 'https://leetcode.com/problems/longest-common-subsequence/',
         description: 'Given two strings, return the length of their longest common subsequence. A subsequence is derived by deleting some characters without changing the order of the remaining characters.',
+        examples: [
+          { input: 'text1 = "abcde", text2 = "ace"', output: '3', explanation: '"ace" is the LCS' },
+          { input: 'text1 = "abc", text2 = "abc"', output: '3' },
+          { input: 'text1 = "abc", text2 = "def"', output: '0', explanation: 'No common subsequence' },
+        ],
         hints: [
           'Build a 2D dp table where dp[i][j] = LCS of text1[:i] and text2[:j].',
           'If characters match: dp[i][j] = dp[i-1][j-1] + 1.',
@@ -751,6 +821,10 @@ fun dfs(grid: Array<CharArray>, r: Int, c: Int) {
         topic: 'heap',
         leetcodeUrl: 'https://leetcode.com/problems/kth-largest-element-in-an-array/',
         description: 'Find the kth largest element in an unsorted array. Note that it is the kth largest in sorted order, not the kth distinct element.',
+        examples: [
+          { input: 'nums = [3,2,1,5,6,4], k = 2', output: '5' },
+          { input: 'nums = [3,2,3,1,2,4,5,5,6], k = 4', output: '4' },
+        ],
         hints: [
           'Maintain a min-heap of size k.',
           'If the heap exceeds size k, remove the minimum.',
@@ -811,6 +885,10 @@ function quickselect(nums: number[], l: number, r: number, k: number): number {
         topic: 'heap',
         leetcodeUrl: 'https://leetcode.com/problems/top-k-frequent-elements/',
         description: 'Given an integer array and an integer k, return the k most frequent elements.',
+        examples: [
+          { input: 'nums = [1,1,1,2,2,3], k = 2', output: '[1,2]' },
+          { input: 'nums = [1], k = 1', output: '[1]' },
+        ],
         hints: [
           'First build a frequency map.',
           'Then use a min-heap of size k to track the top k elements.',
@@ -850,6 +928,11 @@ function quickselect(nums: number[], l: number, r: number, k: number): number {
         topic: 'heap',
         leetcodeUrl: 'https://leetcode.com/problems/merge-k-sorted-lists/',
         description: 'Merge k sorted linked lists and return one sorted list.',
+        examples: [
+          { input: 'lists = [[1,4,5],[1,3,4],[2,6]]', output: '[1,1,2,3,4,4,5,6]' },
+          { input: 'lists = []', output: '[]' },
+          { input: 'lists = [[]]', output: '[]' },
+        ],
         hints: [
           'Push the head of each list into a min-heap.',
           'Pop the minimum, append to result, then push that node\'s next into the heap.',
@@ -886,7 +969,7 @@ function quickselect(nums: number[], l: number, r: number, k: number): number {
   {
     id: 'system-design',
     title: 'System Design',
-    section: 'algorithms',
+    section: 'system-design',
     description: 'High-level architecture questions. Focus on components, trade-offs and scalability.',
     problems: [
       {
@@ -895,7 +978,6 @@ function quickselect(nums: number[], l: number, r: number, k: number): number {
         difficulty: 'Medium',
         pattern: 'System Design',
         topic: 'system-design',
-        leetcodeUrl: 'https://leetcode.com/problems/design-tinyurl/',
         description: 'Design a service like bit.ly that takes a long URL and returns a short code. The short code redirects to the original URL.',
         hints: [
           'Generate a unique short code (base62 encoding of an auto-incremented ID works well).',

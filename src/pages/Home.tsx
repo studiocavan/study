@@ -38,6 +38,7 @@ export default function Home() {
   const { getTopicStats } = useProgress();
   const algorithmTopics = topics.filter(t => t.section === 'algorithms');
   const frontendTopics = topics.filter(t => t.section === 'frontend');
+  const systemDesignTopics = topics.filter(t => t.section === 'system-design');
 
   const allIds = topics.flatMap(t => t.problems.map(p => p.id));
   const { done, total } = getTopicStats(allIds);
@@ -69,12 +70,25 @@ export default function Home() {
       </section>
 
       {frontendTopics.length > 0 && (
-        <section>
+        <section className="mb-8">
           <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">
             Frontend
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {frontendTopics.map(topic => (
+              <TopicCard key={topic.id} topic={topic} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {systemDesignTopics.length > 0 && (
+        <section>
+          <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">
+            System Design
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {systemDesignTopics.map(topic => (
               <TopicCard key={topic.id} topic={topic} />
             ))}
           </div>

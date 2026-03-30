@@ -1,10 +1,16 @@
 export type Difficulty = 'Easy' | 'Medium' | 'Hard';
 export type Language = 'kotlin' | 'typescript';
-export type Section = 'algorithms' | 'frontend';
+export type Section = 'algorithms' | 'frontend' | 'system-design';
 
 export interface CodeSolution {
   kotlin?: string;
   typescript?: string;
+}
+
+export interface Example {
+  input: string;
+  output: string;
+  explanation?: string;
 }
 
 export interface Quiz {
@@ -24,6 +30,7 @@ export interface Problem {
   description: string;
   hints: string[];
   solution: CodeSolution;
+  examples?: Example[];
   quiz?: Quiz;
 }
 

@@ -107,6 +107,7 @@ export default function ProblemDetail() {
   const { lang: prefLang, setLang } = useLangPreference();
   const [showSolution, setShowSolution] = useState(false);
   const [showHints, setShowHints] = useState(false);
+  const [showQuiz, setShowQuiz] = useState(false);
   const [revealedHints, setRevealedHints] = useState(0);
 
   if (!topic || !problem) return <Navigate to="/" replace />;
@@ -156,6 +157,20 @@ export default function ProblemDetail() {
         <p className="text-sm text-gray-300 leading-relaxed">{problem.description}</p>
       </div>
 
+      {/* Examples */}
+      {problem.examples && problem.examples.length > 0 && (
+        <div className="mb-5 space-y-2">
+          {problem.examples.map((ex, i) => (
+            <div key={i} className="p-3 bg-gray-900 border border-gray-800 rounded-xl font-mono text-xs">
+              <p className="text-gray-500 mb-1.5">Example {i + 1}</p>
+              <p><span className="text-gray-400">Input: </span><span className="text-gray-200">{ex.input}</span></p>
+              <p><span className="text-gray-400">Output: </span><span className="text-gray-200">{ex.output}</span></p>
+              {ex.explanation && <p className="mt-1 text-gray-500">{ex.explanation}</p>}
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Hints */}
       <div className="mb-5">
         <button
@@ -188,7 +203,18 @@ export default function ProblemDetail() {
 
       {/* Knowledge Check */}
       {problem.quiz && (
-        <QuizSection quiz={problem.quiz} solution={problem.solution} lang={lang} />
+        <div className="mb-5">
+          <button
+            onClick={() => setShowQuiz(v => !v)}
+            className="flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-white transition-colors mb-3"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className={`w-4 h-4 transition-transform ${showQuiz ? 'rotate-90' : ''}`} fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+            Knowledge Check
+          </button>
+          {showQuiz && <QuizSection quiz={problem.quiz} solution={problem.solution} lang={lang} />}
+        </div>
       )}
 
       {/* Solution */}
