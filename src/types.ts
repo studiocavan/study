@@ -7,6 +7,13 @@ export interface CodeSolution {
   typescript?: string;
 }
 
+export interface Quiz {
+  question: string;
+  codeSnippet: string;
+  options: string[];
+  correctAnswerIndex: number;
+}
+
 export interface Problem {
   id: string;
   title: string;
@@ -17,6 +24,7 @@ export interface Problem {
   description: string;
   hints: string[];
   solution: CodeSolution;
+  quiz?: Quiz;
 }
 
 export interface Topic {

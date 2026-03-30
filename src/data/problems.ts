@@ -43,6 +43,27 @@ export const topics: Topic[] = [
     }
     return intArrayOf()
 }`
+        },
+        quiz: {
+          question: 'Complete the condition to check if the complement exists in the map:',
+          codeSnippet: `fun twoSum(nums: IntArray, target: Int): IntArray {
+    val map = HashMap<Int, Int>()
+    for ((i, num) in nums.withIndex()) {
+        val complement = target - num
+        if (___________________) {
+            return intArrayOf(map[complement]!!, i)
+        }
+        map[num] = i
+    }
+    return intArrayOf()
+}`,
+          options: [
+            'map.containsKey(complement)',
+            'map.containsValue(complement)',
+            'map[complement] != null',
+            'complement in nums',
+          ],
+          correctAnswerIndex: 0,
         }
       },
       {
@@ -192,6 +213,21 @@ function isAlphanumeric(c: string): boolean {
     }
     return true
 }`
+        },
+        quiz: {
+          question: 'What is the correct outer loop condition so the two pointers never cross?',
+          codeSnippet: `fun isPalindrome(s: String): Boolean {
+    var l = 0; var r = s.length - 1
+    while (___________________) {
+        while (l < r && !s[l].isLetterOrDigit()) l++
+        while (l < r && !s[r].isLetterOrDigit()) r--
+        if (s[l].lowercaseChar() != s[r].lowercaseChar()) return false
+        l++; r--
+    }
+    return true
+}`,
+          options: ['l < r', 'l <= r', 'l != r', 'l == r'],
+          correctAnswerIndex: 0,
         }
       },
       {
@@ -322,6 +358,24 @@ function isAlphanumeric(c: string): boolean {
     }
     return maxProfit
 }`
+        },
+        quiz: {
+          question: 'How do you update the maximum profit on each iteration?',
+          codeSnippet: `fun maxProfit(prices: IntArray): Int {
+    var minPrice = Int.MAX_VALUE; var maxProfit = 0
+    for (price in prices) {
+        minPrice = minOf(minPrice, price)
+        maxProfit = ___________________
+    }
+    return maxProfit
+}`,
+          options: [
+            'maxOf(maxProfit, price - minPrice)',
+            'price - minPrice',
+            'maxOf(maxProfit, minPrice - price)',
+            'minOf(maxProfit, price - minPrice)',
+          ],
+          correctAnswerIndex: 0,
         }
       },
       {
@@ -479,6 +533,20 @@ function isAlphanumeric(c: string): boolean {
     if (root == null) return 0
     return 1 + maxOf(maxDepth(root.left), maxDepth(root.right))
 }`
+        },
+        quiz: {
+          question: 'What is the correct recursive return value for maximum depth?',
+          codeSnippet: `fun maxDepth(root: TreeNode?): Int {
+    if (root == null) return 0
+    return ___________________
+}`,
+          options: [
+            '1 + maxOf(maxDepth(root.left), maxDepth(root.right))',
+            'maxOf(maxDepth(root.left), maxDepth(root.right))',
+            'maxDepth(root.left) + maxDepth(root.right) + 1',
+            '1 + maxDepth(root.left) + maxDepth(root.right)',
+          ],
+          correctAnswerIndex: 0,
         }
       },
       {
@@ -530,6 +598,22 @@ fun dfs(grid: Array<CharArray>, r: Int, c: Int) {
     dfs(grid, r + 1, c); dfs(grid, r - 1, c)
     dfs(grid, r, c + 1); dfs(grid, r, c - 1)
 }`
+        },
+        quiz: {
+          question: "When visiting a land cell ('1') in DFS, what must you do immediately to prevent re-visiting?",
+          codeSnippet: `fun dfs(grid: Array<CharArray>, r: Int, c: Int) {
+    if (r < 0 || r >= grid.size || c < 0 || c >= grid[0].size || grid[r][c] != '1') return
+    ___________________
+    dfs(grid, r + 1, c); dfs(grid, r - 1, c)
+    dfs(grid, r, c + 1); dfs(grid, r, c - 1)
+}`,
+          options: [
+            "grid[r][c] = '0'",
+            'count++',
+            "grid[r][c] = '1'",
+            'return 1',
+          ],
+          correctAnswerIndex: 0,
         }
       }
     ]
@@ -564,6 +648,20 @@ fun dfs(grid: Array<CharArray>, r: Int, c: Int) {
     for (i in 2..n) { val temp = b; b = a + b; a = temp }
     return b
 }`
+        },
+        quiz: {
+          question: 'What is the recurrence relation for Climbing Stairs (you can take 1 or 2 steps)?',
+          codeSnippet: `fun climbStairs(n: Int): Int {
+    var a = 1; var b = 1
+    for (i in 2..n) {
+        val temp = b
+        b = ___________________
+        a = temp
+    }
+    return b
+}`,
+          options: ['a + b', 'a * b', 'maxOf(a, b) + 1', 'a + b + 1'],
+          correctAnswerIndex: 0,
         }
       },
       {
@@ -683,6 +781,26 @@ function quickselect(nums: number[], l: number, r: number, k: number): number {
     }
     return minHeap.peek()!!
 }`
+        },
+        quiz: {
+          question: 'When the min-heap exceeds size k, what should you do to maintain only the k largest elements?',
+          codeSnippet: `fun findKthLargest(nums: IntArray, k: Int): Int {
+    val minHeap = PriorityQueue<Int>()
+    for (num in nums) {
+        minHeap.offer(num)
+        if (minHeap.size > k) {
+            ___________________
+        }
+    }
+    return minHeap.peek()!!
+}`,
+          options: [
+            'minHeap.poll()',
+            'minHeap.peek()',
+            'minHeap.clear()',
+            'minHeap.remove(num)',
+          ],
+          correctAnswerIndex: 0,
         }
       },
       {

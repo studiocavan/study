@@ -3,7 +3,7 @@ import { useParams, Navigate, Link } from 'react-router-dom';
 import { topics } from '../data/problems';
 import { useProgress } from '../hooks/useProgress';
 import { useLangPreference } from '../hooks/useLangPreference';
-import { Difficulty } from '../types';
+import { Difficulty, Language, Quiz, CodeSolution } from '../types';
 import hljs from 'highlight.js/lib/core';
 import typescript from 'highlight.js/lib/languages/typescript';
 import kotlin from 'highlight.js/lib/languages/kotlin';
@@ -17,6 +17,86 @@ const difficultyColor: Record<Difficulty, string> = {
   Medium: 'text-yellow-400 bg-yellow-400/10',
   Hard: 'text-red-400 bg-red-400/10',
 };
+
+function QuizSection({ quiz, solution, lang }: { quiz: Quiz; solution: CodeSolution; lang: Language }) {
+  const [selected, setSelected] = useState<number | null>(null);
+  const [showSolution, setShowSolution] = useState(false);
+
+  const solutionLang = lang === 'kotlin' && solution.kotlin ? 'kotlin' : 'typescript';
+  const code = solutionLang === 'kotlin' ? solution.kotlin : solution.typescript;
+  const answered = selected !== null;
+
+  return (
+    <div className="mb-6 p-4 bg-gray-900 border border-indigo-900/40 rounded-xl">
+      <div className="flex items-center gap-2 mb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+        </svg>
+        <span className="text-xs font-bold text-indigo-400 uppercase tracking-widest">Knowledge Check</span>
+      </div>
+
+      <p className="text-sm text-gray-200 mb-3 leading-relaxed">{quiz.question}</p>
+
+      <pre className="p-3 bg-gray-950 border border-gray-800 rounded-lg text-xs text-gray-300 font-mono mb-4 overflow-x-auto leading-relaxed whitespace-pre">
+        <code>{quiz.codeSnippet}</code>
+      </pre>
+
+      <div className="space-y-2">
+        {quiz.options.map((opt, i) => {
+          const isCorrect = i === quiz.correctAnswerIndex;
+          const isSelected = selected === i;
+
+          let cls = 'bg-gray-800 border-gray-700 text-gray-300 hover:bg-gray-700 hover:border-gray-600 cursor-pointer';
+          if (answered) {
+            if (isCorrect) cls = 'bg-green-500/10 border-green-500/40 text-green-300';
+            else if (isSelected) cls = 'bg-red-500/10 border-red-500/40 text-red-300';
+            else cls = 'bg-gray-900 border-gray-800 text-gray-600 opacity-40';
+          }
+
+          return (
+            <button
+              key={i}
+              disabled={answered}
+              onClick={() => setSelected(i)}
+              className={`w-full text-left p-3 rounded-lg border transition-all text-xs font-mono flex items-center justify-between gap-2 ${cls}`}
+            >
+              <span>{opt}</span>
+              {answered && isCorrect && (
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+              )}
+              {answered && isSelected && !isCorrect && (
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-red-500 shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {answered && (
+        <div className="mt-4">
+          <button
+            onClick={() => setShowSolution(v => !v)}
+            className="w-full py-2.5 px-4 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-lg transition-colors"
+          >
+            {showSolution ? 'Hide Solution' : 'Show Full Solution'}
+          </button>
+          {showSolution && code && (
+            <pre className="mt-3 p-4 text-sm overflow-x-auto leading-relaxed font-mono !bg-transparent rounded-lg border border-indigo-900/50">
+              <code
+                className={`language-${solutionLang}`}
+                dangerouslySetInnerHTML={{ __html: hljs.highlight(code, { language: solutionLang }).value }}
+              />
+            </pre>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function ProblemDetail() {
   const { topicId, problemId } = useParams<{ topicId: string; problemId: string }>();
@@ -105,6 +185,11 @@ export default function ProblemDetail() {
           </div>
         )}
       </div>
+
+      {/* Knowledge Check */}
+      {problem.quiz && (
+        <QuizSection quiz={problem.quiz} solution={problem.solution} lang={lang} />
+      )}
 
       {/* Solution */}
       <div className="mb-6">
