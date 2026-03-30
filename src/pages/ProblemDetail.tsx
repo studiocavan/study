@@ -2,7 +2,15 @@ import { useState } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { topics } from '../data/problems';
 import { useProgress } from '../hooks/useProgress';
-import { Difficulty, Language } from '../types';
+import { useLangPreference } from '../hooks/useLangPreference';
+import { Difficulty } from '../types';
+import hljs from 'highlight.js/lib/core';
+import typescript from 'highlight.js/lib/languages/typescript';
+import kotlin from 'highlight.js/lib/languages/kotlin';
+import 'highlight.js/styles/github-dark.css';
+
+hljs.registerLanguage('typescript', typescript);
+hljs.registerLanguage('kotlin', kotlin);
 
 const difficultyColor: Record<Difficulty, string> = {
   Easy: 'text-green-400 bg-green-400/10',
@@ -16,12 +24,16 @@ export default function ProblemDetail() {
   const problem = topic?.problems.find(p => p.id === problemId);
 
   const { getStatus, setStatus } = useProgress();
+  const { lang: prefLang, setLang } = useLangPreference();
   const [showSolution, setShowSolution] = useState(false);
   const [showHints, setShowHints] = useState(false);
   const [revealedHints, setRevealedHints] = useState(0);
-  const [lang, setLang] = useState<Language>(problem?.solution.typescript ? 'typescript' : 'kotlin');
 
   if (!topic || !problem) return <Navigate to="/" replace />;
+
+  const hasKotlin = !!problem.solution.kotlin;
+  const hasTS = !!problem.solution.typescript;
+  const lang = (prefLang === 'kotlin' && hasKotlin) || !hasTS ? 'kotlin' : 'typescript';
 
   const status = getStatus(problem.id);
   const allProblems = topic.problems;
@@ -30,8 +42,6 @@ export default function ProblemDetail() {
   const nextProblem = allProblems[currentIdx + 1];
 
   const code = lang === 'typescript' ? problem.solution.typescript : problem.solution.kotlin;
-  const hasKotlin = !!problem.solution.kotlin;
-  const hasTS = !!problem.solution.typescript;
 
   return (
     <div className="pt-8 pb-8">
@@ -129,8 +139,13 @@ export default function ProblemDetail() {
                 )}
               </div>
             )}
-            <pre className="p-4 text-sm text-gray-300 overflow-x-auto leading-relaxed font-mono">
-              <code>{code}</code>
+            <pre className="p-4 text-sm overflow-x-auto leading-relaxed font-mono !bg-transparent">
+              <code
+                className={`language-${lang}`}
+                dangerouslySetInnerHTML={{
+                  __html: code ? hljs.highlight(code, { language: lang }).value : '',
+                }}
+              />
             </pre>
           </div>
         )}
