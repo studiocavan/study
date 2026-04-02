@@ -22,6 +22,20 @@ export default function Nav() {
           <span className="text-blue-400 font-mono text-sm">&lt;/&gt;</span>
           <span>Study</span>
         </Link>
+        <div className="ml-auto flex items-center gap-1">
+          <Link
+            to="/"
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${location.pathname === '/' || location.pathname.startsWith('/topic') ? 'text-white bg-gray-800' : 'text-gray-400 hover:text-white hover:bg-gray-800'}`}
+          >
+            Problems
+          </Link>
+          <Link
+            to="/study"
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${location.pathname.startsWith('/study') ? 'text-white bg-gray-800' : 'text-gray-400 hover:text-white hover:bg-gray-800'}`}
+          >
+            Patterns
+          </Link>
+        </div>
       </div>
     </header>
   );

@@ -34,6 +34,25 @@ export interface Problem {
   quiz?: Quiz;
 }
 
+export interface PatternEntry {
+  id: string;
+  number: number;
+  title: string;
+  description: string;
+  keyInsight: string;
+  useCases: string[];
+  timeComplexity: string;
+  spaceComplexity: string;
+  kotlinTemplate: string;
+}
+
+export interface PatternCategory {
+  id: string;
+  romanNumeral: string;
+  title: string;
+  patterns: PatternEntry[];
+}
+
 export interface Topic {
   id: string;
   title: string;

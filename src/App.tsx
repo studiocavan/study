@@ -3,6 +3,8 @@ import Nav from './components/Nav';
 import Home from './pages/Home';
 import TopicList from './pages/TopicList';
 import ProblemDetail from './pages/ProblemDetail';
+import Study from './pages/Study';
+import PatternDetail from './pages/PatternDetail';
 
 export default function App() {
   return (
@@ -13,6 +15,8 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/topic/:topicId" element={<TopicList />} />
           <Route path="/topic/:topicId/problem/:problemId" element={<ProblemDetail />} />
+          <Route path="/study" element={<Study />} />
+          <Route path="/study/pattern/:patternId" element={<PatternDetail />} />
         </Routes>
       </main>
     </div>
